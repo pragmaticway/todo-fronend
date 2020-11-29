@@ -1,1 +1,58 @@
-<p>todo-details works!</p>
+<div *ngIf="currentTodo" class="edit-form">
+    <h4>TODO Item</h4>
+    <form>
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          [(ngModel)]="currentTodo.name"
+          name="name"
+        />
+      </div>
+      <div class="form-group">
+        <label for="desc">Description</label>
+        <input
+          type="text"
+          class="form-control"
+          id="desc"
+          [(ngModel)]="currentTodo.desc"
+          name="desc"
+        />
+      </div>
+  
+      <div class="form-group">
+        <label><strong>Status:</strong></label> {{ currentTodo.status }}
+      </div>
+    </form>
+  
+    <button
+      class="badge badge-primary mr-2"
+      *ngIf='currentTodo.status === "done"'
+      (click)="updateStatus('pending')"
+    >
+      Mark as Pending
+    </button>
+    <button
+      *ngIf='currentTodo.status === "pending"'
+      class="badge badge-primary mr-2"
+      (click)="updateStatus('done')"
+    >
+      Mark as Done
+    </button>
+  
+    <button class="badge badge-danger mr-2" (click)="deleteTodo()">
+      Delete
+    </button>
+  
+    <button type="submit" class="badge badge-success" (click)="updateTodo()">
+      Update
+    </button>
+    <p>{{ message }}</p>
+  </div>
+  
+  <div *ngIf="!currentTodo">
+    <br />
+    <p>Cannot access this TODO Item...</p>
+  </div>

@@ -1,1 +1,60 @@
-<p>todo-list works!</p>
+<div class="list row">
+    <div class="col-md-8">
+      <div class="input-group mb-3">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Search by name"
+          [(ngModel)]="name"
+        />
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="button" (click)="searchName()">
+            Search
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <h4>TODO List</h4>
+      <ul class="list-group">
+        <li
+          class="list-group-item"
+          *ngFor="let todo of todos; let i = index"
+          [class.active]="i == currentIndex"
+          (click)="setActiveTodo(todo, i)"
+        >
+          {{ todo.name }}
+        </li>
+      </ul>
+  
+      <!-- <button class="m-3 btn btn-sm btn-danger" (click)="removeAllTodos()">
+        Remove All
+      </button> -->
+    </div>
+    <div class="col-md-6">
+      <div *ngIf="currentTodo">
+        <h4>Todo</h4>
+        <div>
+          <label><strong>Name:</strong></label> {{ currentTodo.name }}
+        </div>
+        <div>
+          <label><strong>Description:</strong></label>
+          {{ currentTodo.desc }}
+        </div>
+        <div>
+          <label><strong>Status:</strong></label> {{ currentTodo.status }}
+        </div>
+  
+        <a class="badge badge-warning" href="/todos/{{ currentTodo.id }}">
+          Edit
+        </a>
+      </div>
+  
+      <div *ngIf="!currentTodo">
+        <br />
+
+        <p *ngIf="todos?.length > 0">Click on a TODO Item to select...</p> 
+        <p><a routerLink="../add" class="nav-link">add a new TODO Item</a> </p>
+      </div>
+    </div>
+  </div>
